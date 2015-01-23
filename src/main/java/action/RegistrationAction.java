@@ -41,7 +41,7 @@ public class RegistrationAction implements Action {
             user.setActive(true);
             userDAO.create(user);
 
-            //todo Позже добавить параметр  jsp и расскомментить
+            /*доб параметр jsp*/
             /*session.setAttribute("successfulMessage", "successful.registration.message");
             session.setAttribute("user", user);*/
             LOGGER.info("New user - " + login);
