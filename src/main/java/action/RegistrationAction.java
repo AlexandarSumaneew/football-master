@@ -14,7 +14,7 @@ public class RegistrationAction implements Action {
     @Override
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         LOGGER.info("Start RegistrationAction");
-        UserDAO userDAO = new UserDAO();
+
 
         String login = req.getParameter("login");
         String password = req.getParameter("password");
@@ -22,8 +22,9 @@ public class RegistrationAction implements Action {
         if (null == login || null == password) {
         } //todo error page or smth
 
+        UserDAO userDAO = new UserDAO();
+
         if (userDAO.isUserRegistered(login)) {
-            //req.setAttribute("sameLogin", "login.error.message");//todo
             LOGGER.error("Login is not unique");
             return new ActionResult("register.jsp");
         } else {
@@ -46,7 +47,7 @@ public class RegistrationAction implements Action {
         }
 
         LOGGER.info("Finish RegistrationAction");
-        return new ActionResult("ok.jsp");//todo Изменить на нормальную страницу + параметр, либо в ok.jsp принимать параметр с текстом + сделать ссылку на главную
+        return new ActionResult("ok.jsp");
         //return new ActionResult("main.jsp");
     }
 }

@@ -19,12 +19,13 @@ public class ConnectionPool {
     private static ConnectionPool instance;
     private static Lock lock = new ReentrantLock(true);
     private BlockingQueue<Connection> connectionQueue;
+    static Property cfg = ConfigFactory.create(Property.class);
 
     private ConnectionPool() {
         init();
     }
 
-    public static ConnectionPool getInstance() {
+    public static ConnectionPool getInstance(String driver, String url, String user, String password, int poolSize) {
         lock.lock();
         if (instance == null) {
             instance = new ConnectionPool();
@@ -36,20 +37,11 @@ public class ConnectionPool {
     private final void init() {
         LOGGER.debug("ConnectionPool init() started");
 
-        //Property cfg = ConfigFactory.create(Property.class);
-
-        String driver = "org.h2.Driver";
-        String url = "jdbc:h2:test";
-        String user = "sa";
-        String password = "";
-        int poolSize = 10;
-
-        //todo - раскомментировать. Сейчас - Null'ы
-        /*String driver = cfg.driverName();
+        String driver = cfg.driverName();
         String url = cfg.pathToDB();
         String user = cfg.login();
         String password = cfg.passDB();
-        int poolSize = cfg.pool_size();*/
+        int poolSize = cfg.pool_size();
 
         connectionQueue = new LinkedBlockingDeque<>(poolSize);
 
@@ -69,9 +61,8 @@ public class ConnectionPool {
     }
 
     public Connection takeConnection() {
-        //Property cfg = ConfigFactory.create(Property.class);//todo
         try {
-            Connection connection = connectionQueue.poll(/*cfg.max_waiting_time()*/3, TimeUnit.SECONDS);//todo
+            Connection connection = connectionQueue.poll(cfg.max_waiting_time(), TimeUnit.SECONDS);
             if (connection == null) {
                 LOGGER.debug("Connection is NULL ");
             }

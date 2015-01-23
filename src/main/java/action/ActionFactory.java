@@ -19,7 +19,7 @@ public class ActionFactory {
     public static Action getAction(String actionName) {
         if (!actions.containsKey(actionName)) {
             LOGGER.info("There is no action: " + actionName);
-            return actions.get("toError");//todo
+            return actions.get("toError");
         }
         return actions.get(actionName);
     }

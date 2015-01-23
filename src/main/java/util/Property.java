@@ -3,7 +3,7 @@ package util;
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;
 
-@Sources("file:src/main/resources/Property.properties")
+@Sources("file:src/main/resources/AppConfig.properties")
 public interface Property extends Config {
 
     String driverName();
