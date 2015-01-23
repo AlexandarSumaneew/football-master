@@ -16,6 +16,7 @@ public class UserDAO {
         this.connection = connection;
     }
 
+
     public void create(User user) {
         LOGGER.info("Start inserting new user");
 
@@ -80,7 +81,6 @@ public class UserDAO {
         boolean result = false;
         try {
             statement = connection.prepareStatement("SELECT COUNT (ID) FROM USERS WHERE LOGIN = '" + login + "')");
-            //statement.setString(1, login);
             resultSet = statement.executeQuery();
             resultSet.next();
             result = resultSet.getInt(1) != 0;
