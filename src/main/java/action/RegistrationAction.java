@@ -1,5 +1,6 @@
 package action;
 
+import dao.DAOFactory;
 import dao.UserDAO;
 import entity.User;
 import org.apache.log4j.Logger;
@@ -15,14 +16,14 @@ public class RegistrationAction implements Action {
     public ActionResult execute(HttpServletRequest req, HttpServletResponse resp) {
         LOGGER.info("Start RegistrationAction");
 
-
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
         if (null == login || null == password) {
-        } //todo error page or smth
+        }
 
-        UserDAO userDAO = new UserDAO();
+        DAOFactory daoFactory = new DAOFactory();
+        UserDAO userDAO = daoFactory.getUserDAO();
 
         if (userDAO.isUserRegistered(login)) {
             LOGGER.error("Login is not unique");
@@ -36,7 +37,7 @@ public class RegistrationAction implements Action {
             user.setLastName(req.getParameter("lastName"));
             user.setEmail(req.getParameter("email"));
             user.setPassword(req.getParameter(password));
-            user.setRoleID(2);//todo Создать таблицу ролей
+            user.setRoleID(2);
             user.setActive(true);
             userDAO.create(user);
 

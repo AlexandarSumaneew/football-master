@@ -61,7 +61,7 @@ public class Controller extends HttpServlet {
     private void forward(ActionResult actionResult, HttpServletRequest req, HttpServletResponse resp) {
         LOGGER.info("Start forwarding");
 
-        String path = "/WEB-INF/page/" + actionResult.getView();
+        String path = "/WEB-INF/" + actionResult.getView();
         LOGGER.info("Forward by path: " + path);
 
         try {

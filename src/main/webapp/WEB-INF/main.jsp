@@ -23,7 +23,7 @@
 
         <form id="register" name="register" method="get" action="${pageContext.request.contextPath}/do/register">
             <h1>Register</h1>
-            <button type="submit" > </button>
+            <button type="submit" >Register</button>
         </form>
     </div>
 </center>
